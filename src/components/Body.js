@@ -1,18 +1,31 @@
 import Bodyitem from "./Bodyitem"
+import { Component } from "react"
 
-const Body = () => {
-    const arr=[
-        "Hit the gym",
-        "Meet George",
-        "Buy eggs",
-        "Read a book",
-        "Organize office"
 
-    ]
-    return (
-        <ul id="myUL">
-           {arr.map((item)=><Bodyitem item={item}/>)}
-        </ul>
-    )
+class Body extends Component {
+    state = {
+        arr: ["Hit the gym",
+            "Meet George",
+            "Buy eggs",
+            "Read a book",
+            "Organize office"
+
+        ]
     }
-    export default Body;
+
+    deleteItem= (deleteItem)=>{
+        this.setState((state)=>{
+            const arr =state.arr.filter((item)=>item!==deleteItem)
+            return{arr}
+        })
+    }
+    render() {
+        return (
+            <ul id="myUL">
+                {this.state.arr.map((item) =>(
+                 <Bodyitem deleteItem={this.deleteItem}item={item} />))}
+            </ul>
+        )
+    }
+}
+export default Body;
